@@ -6,11 +6,13 @@ import {
   HttpStatus,
   Post,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { RegisterUserDto } from './dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { Response } from 'express';
+import { JwtTokenGuard } from 'src/guard/auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -38,6 +40,7 @@ export class UsersController {
     response.cookie('access_token', jwtToken).json(userInfo);
   }
 
+  @UseGuards(JwtTokenGuard)
   @Get('/logout')
   @HttpCode(HttpStatus.OK)
   async logout(@Res({ passthrough: true }) response: Response) {

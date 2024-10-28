@@ -4,6 +4,7 @@ import { UsersController } from './users.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersSchema } from './schemas/users.schemas';
 import { JwtModule } from '@nestjs/jwt';
+import { JwtTokenGuard } from 'src/guard/auth.guard';
 
 @Module({
   imports: [
