@@ -6,6 +6,9 @@ export class Users {
   @Prop({ required: true, trim: true, minlength: 2 })
   username: string;
 
+  @Prop({ trim: true })
+  profilePicture: string;
+
   @Prop({
     required: true,
     trim: true,

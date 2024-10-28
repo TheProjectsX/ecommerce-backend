@@ -8,16 +8,17 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { AuthService } from './auth.service';
 import { RegisterUserDto } from './dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { Response } from 'express';
-import { JwtTokenGuard } from 'src/guard/auth.guard';
+import { JwtTokenGuard } from 'src/guard';
 
-@Controller('users')
-export class UsersController {
-  constructor(private userServices: UsersService) {}
+@Controller('auth')
+export class AuthController {
+  constructor(private userServices: AuthService) {}
 
+  // Register as New User
   @Post('/register')
   @HttpCode(HttpStatus.OK)
   async register(
@@ -29,6 +30,7 @@ export class UsersController {
     response.cookie('access_token', jwtToken).json(userInfo);
   }
 
+  // Login
   @Post('/login')
   @HttpCode(HttpStatus.OK)
   async login(
@@ -40,6 +42,7 @@ export class UsersController {
     response.cookie('access_token', jwtToken).json(userInfo);
   }
 
+  // Logout User
   @UseGuards(JwtTokenGuard)
   @Get('/logout')
   @HttpCode(HttpStatus.OK)
