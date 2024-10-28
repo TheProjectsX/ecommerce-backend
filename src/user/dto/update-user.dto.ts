@@ -11,9 +11,8 @@ export class UpdateUserDto {
   @IsOptional()
   username: string;
 
-  @IsPhoneNumber()
   @IsOptional()
-  number: string;
+  profilePicture: string;
 
   @IsOptional()
   role: string;

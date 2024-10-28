@@ -5,7 +5,7 @@ import * as mongoose from 'mongoose';
 import { RegisterUserDto } from './dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { LoginUserDto } from './dto/login-user.dto';
+import { LoginUserDto } from './dto';
 
 @Injectable()
 export class AuthService {
