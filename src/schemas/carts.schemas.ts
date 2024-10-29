@@ -15,4 +15,4 @@ export class Carts {
 }
 
 // Carts Schema
-export const cartsSchema = SchemaFactory.createForClass(Carts);
+export const CartsSchema = SchemaFactory.createForClass(Carts);
