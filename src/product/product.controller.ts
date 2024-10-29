@@ -7,9 +7,11 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto, UpdateProductDto } from './dto';
+import { AdminRouteGuard } from 'src/guard';
 
 @Controller('products')
 export class ProductController {
@@ -28,12 +30,14 @@ export class ProductController {
   }
 
   // Create new Product
+  @UseGuards(AdminRouteGuard)
   @Post()
   async createNewProduct(@Body() body: CreateProductDto) {
     return await this.productServices.createNewProduct(body);
   }
 
   // Update Product
+  @UseGuards(AdminRouteGuard)
   @Put(':id')
   async updateProduct(
     @Param('id') productId: string,
@@ -43,6 +47,7 @@ export class ProductController {
   }
 
   // Delete Product
+  @UseGuards(AdminRouteGuard)
   @Delete(':id')
   async deleteProduct(@Param('id') productId: string) {
     return await this.productServices.deleteProduct(productId);
