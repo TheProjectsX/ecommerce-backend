@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { Users } from 'src/schemas/users.schemas';
+import { Users } from 'src/schemas';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
@@ -20,7 +20,6 @@ export class UserService {
 
   // Update User info In DB
   async updateUser(userId: string, body: UpdateUserDto) {
-    console.log(userId, body);
     const dbResponse = await this.usersModel.updateOne(
       { _id: userId },
       { ...body },

@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Users } from '../schemas/users.schemas';
+import { Users } from 'src/schemas';
 import * as mongoose from 'mongoose';
 import { RegisterUserDto } from './dto';
 import * as bcrypt from 'bcrypt';
