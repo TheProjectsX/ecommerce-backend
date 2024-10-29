@@ -30,7 +30,7 @@ export class AuthService {
         email: userInfo.email,
       });
 
-      return { userInfo, jwtToken };
+      return { userInfo: { success: true, ...userInfo }, jwtToken };
     } catch (error) {
       if (error instanceof mongoose.Error) {
         throw new ForbiddenException(String(error));
@@ -65,7 +65,7 @@ export class AuthService {
       });
 
       return {
-        userInfo,
+        userInfo: { success: true, ...userInfo },
         jwtToken,
       };
     } catch (error) {

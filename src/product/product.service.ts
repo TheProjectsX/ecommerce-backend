@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Products } from 'src/schemas';
+import { CreateProductDto, UpdateProductDto } from './dto';
 
 @Injectable()
 export class ProductService {
@@ -59,12 +60,43 @@ export class ProductService {
   }
 
   // Get single Product
-  async getSingleProduct(productId: string): Promise<Products> {
+  async getSingleProduct(productId: string): Promise<{}> {
     const dbResponse = await this.productsModel.findById(productId);
     if (!dbResponse) {
       throw new NotFoundException('Product not Found!');
     }
 
-    return dbResponse.toJSON();
+    return { success: true, ...dbResponse.toJSON() };
+  }
+
+  // Create new Product
+  async createNewProduct(body: CreateProductDto): Promise<{}> {
+    const dbResponse = await this.productsModel.create(body);
+    return { success: true, ...dbResponse };
+  }
+
+  // Update Product
+  async updateProduct(productId: string, body: UpdateProductDto) {
+    const dbResponse = await this.productsModel.updateOne(
+      { _id: productId },
+      { ...body },
+    );
+
+    if (dbResponse.matchedCount === 0) {
+      throw new NotFoundException('Product not Found');
+    }
+
+    return { success: true, ...body };
+  }
+
+  // Delete a Product
+  async deleteProduct(productId: string) {
+    const dbResponse = await this.productsModel.deleteOne({ _id: productId });
+
+    if (dbResponse.deletedCount === 0) {
+      throw new NotFoundException('Product not Found!');
+    }
+
+    return { success: true, ...dbResponse };
   }
 }

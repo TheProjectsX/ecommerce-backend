@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { Users } from 'src/schemas';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserDto } from './dto';
 
 @Injectable()
 export class UserService {
@@ -15,7 +15,7 @@ export class UserService {
     const dbResponse = await this.usersModel.findById(userId);
     const { password: _, ...userInfo } = dbResponse.toJSON();
 
-    return userInfo;
+    return { success: true, ...userInfo };
   }
 
   // Update User info In DB
@@ -25,6 +25,10 @@ export class UserService {
       { ...body },
     );
 
-    return dbResponse;
+    if (dbResponse.matchedCount === 0) {
+      throw new NotFoundException('User not Found');
+    }
+
+    return { success: true, ...dbResponse };
   }
 }

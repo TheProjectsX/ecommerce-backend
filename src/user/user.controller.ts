@@ -10,7 +10,7 @@ import {
 import { GetUser } from 'src/decorator';
 import { UserService } from './user.service';
 import { JwtTokenGuard } from 'src/guard';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserDto } from './dto';
 
 @Controller('me')
 @UseGuards(JwtTokenGuard)
