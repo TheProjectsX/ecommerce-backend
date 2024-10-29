@@ -21,13 +21,7 @@ export class Products {
       type: string;
     },
   ];
-
-  @Prop({ default: Date.now })
-  createdAt: Date;
-
-  @Prop({ default: Date.now })
-  updatedAt: Date;
 }
 
-// Product Schema
+// Products Schema
 export const ProductsSchema = SchemaFactory.createForClass(Products);

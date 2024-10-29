@@ -37,12 +37,6 @@ export class Users {
 
   @Prop({ default: false })
   isVerified: boolean;
-
-  @Prop({ default: Date.now })
-  createdAt: Date;
-
-  @Prop({ default: Date.now })
-  updatedAt: Date;
 }
 
 // Schema
