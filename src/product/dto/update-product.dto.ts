@@ -1,26 +1,25 @@
-import { Optional } from '@nestjs/common';
-import { IsNotEmpty, MinLength } from 'class-validator';
+import { IsNotEmpty, IsOptional, MinLength } from 'class-validator';
 
 export class UpdateProductDto {
   @IsNotEmpty()
   @MinLength(2)
-  @Optional()
+  @IsOptional()
   name: string;
 
   @IsNotEmpty()
   @MinLength(10)
-  @Optional()
+  @IsOptional()
   description: string;
 
   @IsNotEmpty()
-  @Optional()
+  @IsOptional()
   price: number;
 
   @IsNotEmpty()
-  @Optional()
+  @IsOptional()
   category: number;
 
-  @Optional()
+  @IsOptional()
   images: [
     {
       type: string;

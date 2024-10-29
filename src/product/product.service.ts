@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Products } from 'src/schemas';
@@ -61,22 +65,30 @@ export class ProductService {
 
   // Get single Product
   async getSingleProduct(productId: string): Promise<{}> {
-    const dbResponse = await this.productsModel.findById(productId);
-    if (!dbResponse) {
-      throw new NotFoundException('Product not Found!');
-    }
+    try {
+      const dbResponse = await this.productsModel.findById(productId);
+      if (!dbResponse) {
+        throw new NotFoundException('Product not Found!');
+      }
 
-    return { success: true, ...dbResponse.toJSON() };
+      return { success: true, ...dbResponse.toJSON() };
+    } catch (error) {
+      if (error instanceof mongoose.Error.CastError && error.path === '_id') {
+        throw new BadRequestException('Invalid Product ID given');
+      }
+
+      throw error;
+    }
   }
 
   // Create new Product
   async createNewProduct(body: CreateProductDto): Promise<{}> {
     const dbResponse = await this.productsModel.create(body);
-    return { success: true, ...dbResponse };
+    return { success: true, ...dbResponse.toJSON() };
   }
 
   // Update Product
-  async updateProduct(productId: string, body: UpdateProductDto) {
+  async updateProduct(productId: string, body: UpdateProductDto): Promise<{}> {
     const dbResponse = await this.productsModel.updateOne(
       { _id: productId },
       { ...body },
@@ -86,11 +98,11 @@ export class ProductService {
       throw new NotFoundException('Product not Found');
     }
 
-    return { success: true, ...body };
+    return { success: true, ...dbResponse };
   }
 
   // Delete a Product
-  async deleteProduct(productId: string) {
+  async deleteProduct(productId: string): Promise<{}> {
     const dbResponse = await this.productsModel.deleteOne({ _id: productId });
 
     if (dbResponse.deletedCount === 0) {
