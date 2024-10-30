@@ -8,14 +8,14 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { GetUser } from 'src/decorator';
-import { UserService } from './user.service';
+import { UsersService } from './users.service';
 import { JwtTokenGuard } from 'src/guard';
 import { UpdateUserDto } from './dto';
 
 @Controller('me')
 @UseGuards(JwtTokenGuard)
-export class UserController {
-  constructor(private userServices: UserService) {}
+export class UsersController {
+  constructor(private userServices: UsersService) {}
 
   @Get()
   @HttpCode(HttpStatus.OK)

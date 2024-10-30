@@ -5,7 +5,7 @@ import { Users } from 'src/schemas';
 import { UpdateUserDto } from './dto';
 
 @Injectable()
-export class UserService {
+export class UsersService {
   constructor(
     @InjectModel(Users.name) private usersModel: mongoose.Model<Users>,
   ) {}

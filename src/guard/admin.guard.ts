@@ -6,13 +6,13 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserService } from 'src/user/user.service';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AdminRouteGuard implements CanActivate {
   constructor(
     private jwtServices: JwtService,
-    private userServices: UserService,
+    private usersServices: UsersService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -30,7 +30,7 @@ export class AdminRouteGuard implements CanActivate {
       // Verify the token's validity
       const payload = await this.jwtServices.verifyAsync(token);
       const { id } = payload;
-      const userInDb = await this.userServices.getUserData(id);
+      const userInDb = await this.usersServices.getUserData(id);
       if (userInDb.role !== 'admin') {
         throw new ForbiddenException('Access Denied!');
       }

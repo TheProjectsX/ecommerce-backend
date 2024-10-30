@@ -9,7 +9,7 @@ import { Carts } from 'src/schemas';
 import { CreateCartDto, UpdateCartDto } from './dto';
 
 @Injectable()
-export class CartService {
+export class CartsService {
   constructor(
     @InjectModel(Carts.name) private cartsModel: mongoose.Model<Carts>,
   ) {}
