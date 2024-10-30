@@ -12,10 +12,11 @@ export class UsersService {
 
   // Get Data of Current User
   async getUserData(userId: string) {
-    const dbResponse = await this.usersModel.findById(userId);
-    const { password: _, ...userInfo } = dbResponse.toJSON();
+    const dbResponse = await this.usersModel
+      .findById(userId)
+      .select('-password');
 
-    return { success: true, ...userInfo };
+    return { success: true, ...dbResponse.toJSON() };
   }
 
   // Update User info In DB
