@@ -17,15 +17,17 @@ import { UpdateUserDto } from './dto';
 export class UsersController {
   constructor(private userServices: UsersService) {}
 
+  // Get user Information
   @Get()
   @HttpCode(HttpStatus.OK)
   async getUserInfo(@GetUser('id') userId: string) {
-    return this.userServices.getUserData(userId);
+    return await this.userServices.getUserData(userId);
   }
 
+  // Update user Info
   @Post()
   @HttpCode(HttpStatus.OK)
   async updateUser(@GetUser('id') userId: string, @Body() body: UpdateUserDto) {
-    return this.userServices.updateUser(userId, body);
+    return await this.userServices.updateUser(userId, body);
   }
 }

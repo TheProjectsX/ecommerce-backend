@@ -1,5 +1,22 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
+class Address {
+  @IsOptional()
+  street: string;
+
+  @IsOptional()
+  city: string;
+
+  @IsOptional()
+  state: string;
+
+  @IsOptional()
+  postalCode: string;
+
+  @IsOptional()
+  country: string;
+}
+
 export class UpdateUserDto {
   @IsString()
   @IsNotEmpty()
@@ -14,4 +31,7 @@ export class UpdateUserDto {
 
   @IsOptional()
   isVerified: boolean;
+
+  @IsOptional()
+  address: Address;
 }

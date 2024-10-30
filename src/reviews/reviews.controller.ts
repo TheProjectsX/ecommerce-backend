@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -21,12 +23,14 @@ export class ReviewsController {
 
   // Get Cart items
   @Get('')
+  @HttpCode(HttpStatus.OK)
   async getReviewItems(@Query() query: any) {
     return await this.reviewsServices.getReviewItems(query);
   }
 
   // Get Single Cart
   @Get(':id')
+  @HttpCode(HttpStatus.OK)
   async getSingleReview(@Param('id') reviewId: string) {
     return await this.reviewsServices.getSingleReview(reviewId);
   }
@@ -44,6 +48,7 @@ export class ReviewsController {
   // Update cart Items
   @UseGuards(JwtTokenGuard)
   @Put(':id')
+  @HttpCode(HttpStatus.OK)
   async updateReview(
     @GetUser('id') userId: string,
     @Param('id') reviewId: string,
@@ -55,6 +60,7 @@ export class ReviewsController {
   // Delete Cart Items
   @UseGuards(JwtTokenGuard)
   @Delete(':id')
+  @HttpCode(HttpStatus.OK)
   async deleteReview(
     @GetUser('id') userId: string,
     @Param('id') reviewId: string,
@@ -65,7 +71,8 @@ export class ReviewsController {
   // Add like to Review
   @UseGuards(JwtTokenGuard)
   @Put(':id/like')
+  @HttpCode(HttpStatus.OK)
   async addLike(@GetUser('id') userId: string, @Param('id') reviewId: string) {
-    return this.reviewsServices.addLike(userId, reviewId);
+    return await this.reviewsServices.addLike(userId, reviewId);
   }
 }

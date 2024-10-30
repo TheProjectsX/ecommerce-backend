@@ -64,7 +64,7 @@ export class ProductsService {
   }
 
   // Get single Product
-  async getSingleProduct(productId: string): Promise<{}> {
+  async getSingleProduct(productId: string) {
     try {
       const dbResponse = await this.productsModel.findById(productId);
       if (!dbResponse) {
@@ -82,13 +82,13 @@ export class ProductsService {
   }
 
   // Create new Product
-  async createNewProduct(body: CreateProductDto): Promise<{}> {
+  async createNewProduct(body: CreateProductDto) {
     const dbResponse = await this.productsModel.create(body);
     return { success: true, ...dbResponse.toJSON() };
   }
 
   // Update Product
-  async updateProduct(productId: string, body: UpdateProductDto): Promise<{}> {
+  async updateProduct(productId: string, body: UpdateProductDto) {
     const dbResponse = await this.productsModel.updateOne(
       { _id: productId },
       { ...body },
@@ -102,7 +102,7 @@ export class ProductsService {
   }
 
   // Delete a Product
-  async deleteProduct(productId: string): Promise<{}> {
+  async deleteProduct(productId: string) {
     const dbResponse = await this.productsModel.deleteOne({ _id: productId });
 
     if (dbResponse.deletedCount === 0) {

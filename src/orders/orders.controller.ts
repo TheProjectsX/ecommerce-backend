@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -22,12 +24,14 @@ export class OrdersController {
 
   // Get Cart items
   @Get('')
+  @HttpCode(HttpStatus.OK)
   async getOrderItems(@GetUser('id') userId: string, @Query() query: any) {
     return await this.ordersServices.getOrderItems(userId, query);
   }
 
   // Get Single Cart
   @Get(':id')
+  @HttpCode(HttpStatus.OK)
   async getSingleOrder(
     @GetUser('id') userId: string,
     @Param('id') orderId: string,
@@ -46,6 +50,7 @@ export class OrdersController {
 
   // Update cart Items
   @Put(':id')
+  @HttpCode(HttpStatus.OK)
   async updateOrder(
     @GetUser('id') userId: string,
     @Param('id') orderId: string,
@@ -56,6 +61,7 @@ export class OrdersController {
 
   // Delete Cart Items
   @Delete(':id')
+  @HttpCode(HttpStatus.OK)
   async deleteOrder(
     @GetUser('id') userId: string,
     @Param('id') orderId: string,

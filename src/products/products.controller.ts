@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -19,12 +21,14 @@ export class ProductsController {
 
   // Get Products
   @Get()
+  @HttpCode(HttpStatus.OK)
   async getProducts(@Query() query: any) {
     return await this.productsServices.getProducts(query);
   }
 
   // Get Single Product
   @Get(':id')
+  @HttpCode(HttpStatus.OK)
   async getSingleProduct(@Param('id') productId: string) {
     return await this.productsServices.getSingleProduct(productId);
   }
@@ -39,6 +43,7 @@ export class ProductsController {
   // Update Product
   @UseGuards(AdminRouteGuard)
   @Put(':id')
+  @HttpCode(HttpStatus.OK)
   async updateProduct(
     @Param('id') productId: string,
     @Body() body: UpdateProductDto,
@@ -49,6 +54,7 @@ export class ProductsController {
   // Delete Product
   @UseGuards(AdminRouteGuard)
   @Delete(':id')
+  @HttpCode(HttpStatus.OK)
   async deleteProduct(@Param('id') productId: string) {
     return await this.productsServices.deleteProduct(productId);
   }
