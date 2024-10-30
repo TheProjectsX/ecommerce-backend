@@ -1,4 +1,4 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 
 // Define a sub-document schema for each product in the order
@@ -17,7 +17,7 @@ export class Orders {
   userId: Types.ObjectId;
 
   @Prop({ type: [ProductDetails], required: true })
-  products: ProductDetails[];
+  orders: ProductDetails[];
 
   @Prop({
     required: true,
@@ -27,11 +27,10 @@ export class Orders {
   status: string;
 
   @Prop({ required: true })
-  quantities: number[];
-
-  @Prop({ required: true })
   totalAmount: number;
 
-  @Prop({ required: true })
+  @Prop({ required: true, default: Date.now })
   orderDate: Date;
 }
+
+export const OrdersSchema = SchemaFactory.createForClass(Orders);
