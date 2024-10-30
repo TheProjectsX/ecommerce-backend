@@ -24,6 +24,9 @@ export class Users {
   @Prop({ enum: ['user', 'admin'], default: 'user' })
   role: string;
 
+  @Prop({ default: true })
+  active: boolean;
+
   address: {
     street: { type: String; trim: true };
     city: { type: String; trim: true };

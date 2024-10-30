@@ -27,11 +27,5 @@ export class UpdateUserDto {
   profilePicture: string;
 
   @IsOptional()
-  role: string;
-
-  @IsOptional()
-  isVerified: boolean;
-
-  @IsOptional()
   address: Address;
 }
