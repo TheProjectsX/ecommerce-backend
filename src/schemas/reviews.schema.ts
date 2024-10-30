@@ -16,9 +16,6 @@ export class Reviews {
   @Prop({ maxlength: 500 })
   review: string;
 
-  @Prop({ default: 0 })
-  likes: number;
-
   @Prop({ default: [] })
   likedBy: Types.ObjectId[];
 }

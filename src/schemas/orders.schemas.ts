@@ -11,7 +11,8 @@ class ProductDetails {
   quantity: number;
 }
 
-const ProductDetailsSchema = SchemaFactory.createForClass(ProductDetails);
+export const ProductDetailsSchema =
+  SchemaFactory.createForClass(ProductDetails);
 
 // Schema Class
 @Schema({ timestamps: true })

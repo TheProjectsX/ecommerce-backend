@@ -44,7 +44,6 @@ export class ProductsService {
       .find(filter)
       .limit(limit)
       .skip(skip)
-      .populate('orders.product', 'name price images')
       .exec();
     const totalProductsCount = await this.productsModel.countDocuments(filter);
 
@@ -67,9 +66,7 @@ export class ProductsService {
   // Get single Product
   async getSingleProduct(productId: string): Promise<{}> {
     try {
-      const dbResponse = await this.productsModel
-        .findById(productId)
-        .populate('orders.product');
+      const dbResponse = await this.productsModel.findById(productId);
       if (!dbResponse) {
         throw new NotFoundException('Product not Found!');
       }
