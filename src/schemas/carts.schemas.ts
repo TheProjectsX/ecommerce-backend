@@ -8,7 +8,7 @@ export class Carts {
   userId: Types.ObjectId;
 
   @Prop({ type: Types.ObjectId, required: true, ref: 'Products' })
-  productId: Types.ObjectId;
+  product: Types.ObjectId;
 
   @Prop({ required: true, min: 1 })
   quantity: number;
